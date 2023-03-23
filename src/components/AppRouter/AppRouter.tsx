@@ -8,6 +8,8 @@ const AppRouter:FC = () => {
     return (
       <Routes>
         <Route path={ROUTES.HOMEPAGE} element={<HomePage/>}/>
+        <Route path={ROUTES.CARS} element={<HomePage/>}/>
+        <Route path={ROUTES.CLIENTS} element={<HomePage/>}/>
         <Route path={ROUTES.ERROR} element={<Error/>}/>
         <Route path={ROUTES.ANY} element={<Navigate to={ROUTES.ERROR} replace/>}/>
       </Routes>
