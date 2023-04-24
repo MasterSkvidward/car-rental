@@ -5,7 +5,7 @@ import github_logo from '../../images/github_logo.png';
 import { useNavigate } from 'react-router-dom';
 
 const Footer:FC = () => {
-    const githubLink = 'https://github.com/MasterSkvidward';
+    const githubLink:string = 'https://github.com/MasterSkvidward';
     const navigate = useNavigate();
 
     return (

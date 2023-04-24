@@ -1,0 +1,22 @@
+.cars {
+    min-height: 100vh;
+    
+
+    &__container {
+        padding: 50px 0px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 40px;
+    }
+
+
+    &__btn {
+        // flex: 0 0 30px;
+        align-self:flex-end;
+        // max-width: 100px;
+        padding: 12px 18px;
+        text-align:center;
+        background-color: rgb(243, 105, 105);
+        cursor: pointer;
+    }
+}

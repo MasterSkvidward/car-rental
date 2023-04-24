@@ -8,8 +8,6 @@ const Header:FC = () => {
     const header = useRef<HTMLDivElement>(null);
 
     function handleScroll() {
-        console.log(window.pageYOffset);
-        
         if (window.pageYOffset > 100) {
             header.current?.classList.add(classes.sticky);
         } else if (window.pageYOffset === 0) header.current?.classList.remove(classes.sticky);
@@ -20,9 +18,9 @@ const Header:FC = () => {
     }, [])
 
     return (
-       <div ref={header} className={classes.header}>
-           <Navbar/>
-       </div>
+        <div ref={header} className={classes.header}>
+            <Navbar/>
+        </div>
     );
 }
 

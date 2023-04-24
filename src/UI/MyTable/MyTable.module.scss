@@ -1,0 +1,36 @@
+table {
+    border-spacing: 0 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+
+    th {
+        padding: 18px 20px;
+        background: #56433D;
+        color: #F9C941;
+        border-right: 2px solid; 
+        font-size: 0.94em;
+        
+        &:last-child {
+            border-right: none;
+        }
+    }
+
+    td {
+        vertical-align: middle;
+        padding: 20px;
+        font-size: 15px;
+        text-align: center;
+        border-top: 2px solid #56433D;
+        border-bottom: 2px solid #56433D;
+        border-right: 2px solid #56433D;
+
+        &:first-child {
+            border-left: 2px solid #56433D;
+            border-right: none;
+        }
+
+        &:nth-child(2) {
+            text-align: left;
+        }
+    }
+}

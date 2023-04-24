@@ -1,0 +1,9 @@
+[
+    {"brand": "lamborghini","stateRegistrationNumber": "А123ХА-10",  "color": "Белый", "year": "2012", "isAvailable": true},
+    {"brand": "lada","stateRegistrationNumber": "В312КМ-10",  "color": "Красный", "year": "1999", "isAvailable": true},
+    {"brand": "ferrari","stateRegistrationNumber": "Е123ОР-10",  "color": "Зеленый", "year": "2005", "isAvailable": true},
+    {"brand": "kia","stateRegistrationNumber": "К543ВЕ-10", "color": "Белый", "year": "2003", "isAvailable": true},
+    {"brand": "Mercedez-Benz","stateRegistrationNumber": "М137НО-10", "color": "Белый", "year": "2003", "isAvailable": true},
+    {"brand": "subaru","stateRegistrationNumber": "Н173ТУ-10", "color": "Фиолетовый", "year": "1980", "isAvailable": true},
+    {"brand": "BMW","stateRegistrationNumber": "О693РС-10", "color": "Белый", "year": "1990", "isAvailable": true}
+]

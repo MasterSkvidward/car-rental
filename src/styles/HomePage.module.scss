@@ -1,0 +1,11 @@
+.homepage {
+    min-height: 100vh;
+    
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        row-gap: 200px;
+        padding: 50px 0px;
+    }
+}

@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import '../styles/Error.scss';
+import '../styles/Error.module.scss';
 
 const Error:FC = () => {
     return (

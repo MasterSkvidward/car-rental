@@ -20,7 +20,7 @@ const Navbar:FC<NavbarProprs>= () => {
            <div className={''}>
                 <ul className={classes.navbar__links} >
                     <li className={classes.navbar__link} onClick={() => navigate(ROUTES.CARS)}>Автомобили</li>
-                    <li className={classes.navbar__link} onClick={() => navigate(ROUTES.CLIENTS)}>Клиенты<Link to=''></Link></li>
+                    <li className={classes.navbar__link} onClick={() => navigate(ROUTES.CLIENTS)}>Клиенты</li>
                 </ul>
            </div>
        </div>

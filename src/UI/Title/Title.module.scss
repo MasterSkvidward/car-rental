@@ -1,0 +1,12 @@
+.title {
+    color: rgba(0, 0, 0, 1);
+    font-size: 27px;
+    font-weight: 600;
+
+    &::before {
+        content: '';
+        margin-right: 8px;
+        vertical-align:middle;
+        border-right: 4px solid rgb(53, 206, 71);
+    }
+}
