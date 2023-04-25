@@ -166,6 +166,8 @@ export class HashTable {
 
     FindList(key:string):Array<ICar | null> {
 
+        if (!key) return this.GetArray();
+
         let arr:Array<ICar | null> = [];
         
         for (let i = 0; i < HashTable.size; i++) {

@@ -12,7 +12,7 @@ const Clients = () => {
 
     return (
         <div className={classes['clients']}>
-            <List title={'Список всех клиентов'} items={clients} headlines={clientHeadlines} image={client}/>
+            <List title={'Список всех клиентов'} items={clients} headlines={clientHeadlines} image={client} isCarList={false}/>
         </div>
     );
 }

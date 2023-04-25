@@ -1,20 +1,21 @@
-import React, {FC} from 'react';
-
+import React, {FC, Dispatch, SetStateAction, ChangeEvent} from 'react';
 import classes from './MyInput.module.scss';
 
 interface MyInputProps {
-    placeholder?: string;
-    pattern?: string;
-    type?: string;
+    placeholder: string;
+    setValue:Dispatch<SetStateAction<string>>;
 }
 
-const MyInput:FC<MyInputProps> = ({placeholder, pattern, type}) => {
-    console.log(pattern);
-    
+const MyInput:FC<MyInputProps> = ({placeholder, setValue}) => {
+
+    const handlerChange = (e: ChangeEvent<HTMLInputElement>):void => {
+        setValue(e.target.value)
+    }
+
     return (
-       <input type={type} className={classes['input']} placeholder={placeholder} pattern={pattern}>
-           
-       </input>
+        <input className={classes.input} placeholder={placeholder} onChange={handlerChange} type="text">
+            
+        </input>
     );
 }
 

@@ -13,9 +13,11 @@ export interface ClientState {
 export enum ClientActionsEnum {
     ADD_CLIENT = "ADD_CLIENT",
     INITIALIZE_AVLTREE = "INITIALIZE_AVLTREE",
+    FIND_CLIENT_LIST = "FIND_CLIENT_LIST",
+    DELETE_ALL = "DELETE_ALL",
 }
 
-interface InitializeAVLTREE {
+interface InitializeAVLTreeAction {
     type: ClientActionsEnum.INITIALIZE_AVLTREE;
     payload: {
         clients: IClient[],
@@ -28,5 +30,15 @@ interface AddClientAction {
     payload: IClient[];
 }
 
+interface FindClientListAction {
+    type: ClientActionsEnum.FIND_CLIENT_LIST;
+    payload: IClient[];
+}
+
+interface DeleteAllAction {
+    type: ClientActionsEnum.DELETE_ALL;
+    payload: [];
+}
+
 export type ClientAction = 
-    AddClientAction | InitializeAVLTREE
+    AddClientAction | InitializeAVLTreeAction | FindClientListAction | DeleteAllAction

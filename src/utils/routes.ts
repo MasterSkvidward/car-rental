@@ -2,6 +2,6 @@ export const ROUTES = {
     HOMEPAGE: '/',
     CARS: '/cars',
     CLIENTS: '/clients',
-    ERROR: '/error',
+    ERROR: '/404',
     ANY: '/*',
 }

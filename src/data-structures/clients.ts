@@ -49,6 +49,8 @@ export class AVLTree {
     }
 
     public Find(key: string):IClient[] {
+        if (!key) return this.treeLists;
+
         let list: IClient[] = [];
 
         const callback = (data: IClient) => {

@@ -14,8 +14,15 @@ export default function clientrReducer(state = initialState, action:ClientAction
         case ClientActionsEnum.INITIALIZE_AVLTREE:
             return {...state, clients: action.payload.clients, uniqueKeys: action.payload.uniqueKeys};
 
-        case ClientActionsEnum.ADD_CLIENT:
-            return {...state};
+        // case ClientActionsEnum.ADD_CLIENT:
+        //     return {...state, clients: state.clients.push(action.payload)};
+
+        case ClientActionsEnum.FIND_CLIENT_LIST:
+            return {...state, clients: action.payload};
+
+        case ClientActionsEnum.DELETE_ALL:
+            console.log('AVLTREE --');
+            return {...state, clients: action.payload};
 
         default:
             return state;

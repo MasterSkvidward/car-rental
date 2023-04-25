@@ -1,0 +1,26 @@
+.button {
+    // flex: 0 0 30px;
+    // max-width: 100px;
+    padding: 12px 18px;
+    text-align:center;
+    background-color: rgb(243, 105, 105);
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100px;
+    height: 40px;
+    font-weight: 500;
+
+    &:hover {
+        background-color: rgb(202, 117, 117);
+    }
+
+    &:active {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        width: 98px;
+        height: 38px;
+        font-weight: 600;
+    }
+}

@@ -14,6 +14,8 @@ interface MyTableProps {
 
 const MyTable:FC<MyTableProps> = ({items, headlines, image}) => {
     console.log(items);
+
+    if (items.length === 0) return(<></>);
     
     return (
         <table>
@@ -30,8 +32,8 @@ const MyTable:FC<MyTableProps> = ({items, headlines, image}) => {
                 {items.map((item, index) => 
                     <tr key={index}>
                         <td><img src={image} alt="" width={52} height={52}/></td>
-                        {Object.values(item).map(elem =>
-                            <td>{
+                        {Object.values(item).map((elem, index) =>
+                            <td key={index}>{
                                 typeof elem === 'boolean'
                                     ? elem ? "В наличии" : "Нет в наличии"
                                     : elem

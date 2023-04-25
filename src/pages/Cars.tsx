@@ -10,7 +10,7 @@ const Cars = () => {
 
     return (
        <div className={classes['cars']}>
-            <List title={'Список всех автомобилей'} items={cars} headlines={carHeadlines} image={car}/>
+            <List title={'Список всех автомобилей'} items={cars} headlines={carHeadlines} image={car} isCarList={true}/>
        </div>
     )
 }

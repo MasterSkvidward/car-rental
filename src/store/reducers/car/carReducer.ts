@@ -6,7 +6,6 @@ import { CarState } from "./types";
 
 const initialState = {
     cars: [],
-    car: {},
 }
 
 
@@ -17,6 +16,14 @@ export default function carReducer(state = initialState, action:CarAction): CarS
 
         case CarActionsEnum.ADD_CAR:
             return {...state, cars: [...state.cars, action.payload]};
+
+        case CarActionsEnum.FIND_CAR_LIST:
+            return {...state, cars: action.payload};
+
+        case CarActionsEnum.DELETE_ALL_CARS:
+            console.log('CarActions DELETE_ALL');
+            
+            return {...state, cars: action.payload};
 
         default:
             return state;
