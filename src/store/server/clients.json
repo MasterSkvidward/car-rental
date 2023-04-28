@@ -1,9 +1,9 @@
 [
-    {"fullName":"Таня", "driverLicenceNumber":"21 КП 000002","address":"Достоевкая","passportData":"1817400555"},
-    {"fullName":"Ваня", "driverLicenceNumber":"13 РДК 000007","address":"Спасская","passportData":"5817557165"},
-    {"fullName":"Маша", "driverLicenceNumber":"44 ЛН 000001","address":"Ладожская","passportData":"1817953125"},
-    {"fullName":"Борис", "driverLicenceNumber":"55 РА 000003","address":"Московская","passportData":"131952715"},
-    {"fullName":"Жорж", "driverLicenceNumber":"86 АР 000004","address":"Новочеркасская","passportData":"8819571265"},
-    {"fullName":"Олег", "driverLicenceNumber":"25 ВО 000005","address":"Парнас","passportData":"131922333"},
-    {"fullName":"Джейсон", "driverLicenceNumber":"61 МА 00006","address":"Садовая","passportData":"5817543112"}
+    {"fullName":"Таня", "driverLicenceNumber":"21 АА 000002","address":"Достоевкая","passportData":"1817400555"},
+    {"fullName":"Ваня", "driverLicenceNumber":"13 ВВ 000007","address":"Спасская","passportData":"5817557165"},
+    {"fullName":"Маша", "driverLicenceNumber":"44 КК 000001","address":"Ладожская","passportData":"1817953125"},
+    {"fullName":"Борис", "driverLicenceNumber":"55 ЕЕ 000003","address":"Московская","passportData":"131952715"},
+    {"fullName":"Жорж", "driverLicenceNumber":"86 ММ 000004","address":"Новочеркасская","passportData":"8819571265"},
+    {"fullName":"Олег", "driverLicenceNumber":"25 ТТ 000005","address":"Парнас","passportData":"131922333"},
+    {"fullName":"Джейсон", "driverLicenceNumber":"61 УУ 00006","address":"Садовая","passportData":"5817543112"}
 ]

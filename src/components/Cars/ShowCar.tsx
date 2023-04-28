@@ -27,6 +27,7 @@ interface ShowCarProps {
 const ShowCar:FC<ShowCarProps> = ({currentClient, car, modalVisible,  setModalVisible}) => {
     const dispatch = useDispatch();
     const {CircularLinkedList} = useTypedSelector(state => state.rent);
+    const {avlTree} = useTypedSelector(state => state.client);
 
     const [isOwned, setIsOwned] = useState<boolean>(false);
     const [rentVisible, setRentVisible] = useState<boolean>(false);
@@ -124,7 +125,7 @@ const ShowCar:FC<ShowCarProps> = ({currentClient, car, modalVisible,  setModalVi
                         </table>
                         
 
-                        {isOwned && !car.isAvailable &&
+                        {isOwned && !car.isAvailable && currentClient &&
                             <div className={classes['car__renter']}>
                                 <div className={classes['car__arend']}>
                                     <span className={classes['car__arendator']}>Текущий арендатор:</span><span className={classes['car__fullname']}>{`${carOwnerNumber?.driverLicenceNumber? carOwnerNumber.driverLicenceNumber : ''} - ${currentClient?.fullName}`}</span>
@@ -151,8 +152,8 @@ const ShowCar:FC<ShowCarProps> = ({currentClient, car, modalVisible,  setModalVi
                                         <div onClick={(e) => handlerClickRepare(e, true)}><MyButton value={'Вернуть из ремонта'} color={'black'}/></div>
                                 : 
                                     <div className={classes['car__first']}>
-                                        <div onClick={(e) => handlerClickRepare(e, false)}><MyButton value={'Отправить в ремонт'} color={'black'}/></div>
-                                        <div onClick={handlerClickRent}><MyButton value={'Выдать на прокат'} color={'black'}/></div>
+                                         <div onClick={(e) => handlerClickRepare(e, false)}><MyButton value={'Отправить в ремонт'} color={'black'}/></div>
+                                         {avlTree.treeElements.length ?<div onClick={handlerClickRent}><MyButton value={'Выдать на прокат'} color={'black'}/></div>:<></>}
                                     </div>
                             }
                           

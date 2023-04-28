@@ -9,7 +9,7 @@ import MyButton from '../../UI/MyButton/MyButton';
 const AddCar = () => {
     const dispatch = useDispatch();
 
-    const [regNumber, setRegNumber] = useState<string>('ANNNAA-NN');
+    const [regNumber, setRegNumber] = useState<string>('');
     const [regNumberDirty, setRegNumberDirty] = useState<boolean>(false);
     const [regNumberError, setRegNumberError] = useState<string>('');
 
@@ -20,13 +20,20 @@ const AddCar = () => {
 
 
     const addCar = () => {
-        dispatch(CarActionCreators.AddCar({
-            brand: brand,
-            stateRegistrationNumber: regNumber,
-            color: color,
-            releaseYear: year,
-            isAvailable: true,
-        }))
+        if (!regNumberError && regNumber && brand && color && year) {
+            dispatch(CarActionCreators.AddCar({
+                brand: brand,
+                stateRegistrationNumber: regNumber,
+                color: color,
+                releaseYear: year,
+                isAvailable: true,
+            }))
+            alert('Автомобиль добавлен!')
+        }
+        else {
+            alert('Автомобиль не  добавлен!')
+        }
+       
     }
 
     const handlerBlur = () => {

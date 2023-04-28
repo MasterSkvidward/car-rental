@@ -1,9 +1,9 @@
 [
     {"brand": "Audi","stateRegistrationNumber": "А111АА-11",  "color": "Черный", "year": "2014", "isAvailable": true},
-    {"brand": "Bently","stateRegistrationNumber": "Г555ЛК-55",  "color": "Серый", "year": "2009", "isAvailable": true},
-    {"brand": "Bugatti","stateRegistrationNumber": "Т876ТП-99",  "color": "Оранжевый", "year": "2021", "isAvailable": true},
-    {"brand": "Ford","stateRegistrationNumber": "Л208ДЗ-27", "color": "Зеленый", "year": "2011", "isAvailable": true},
+    {"brand": "Bently","stateRegistrationNumber": "В555ВВ-55",  "color": "Серый", "year": "2009", "isAvailable": true},
+    {"brand": "Bugatti","stateRegistrationNumber": "Т876ТК-99",  "color": "Оранжевый", "year": "2021", "isAvailable": true},
+    {"brand": "Ford","stateRegistrationNumber": "К208СУ-27", "color": "Зеленый", "year": "2011", "isAvailable": true},
     {"brand": "Honda","stateRegistrationNumber": "М534ММ-18", "color": "Белый", "year": "2003", "isAvailable": true},
-    {"brand": "Kia","stateRegistrationNumber": "К461ПП-33", "color": "Фиолетовый", "year": "1999", "isAvailable": true},
-    {"brand": "MCLaren","stateRegistrationNumber": "Б362АД-41", "color": "Белый", "year": "2023", "isAvailable": true}
+    {"brand": "Kia","stateRegistrationNumber": "К461ОО-33", "color": "Фиолетовый", "year": "1999", "isAvailable": true},
+    {"brand": "MCLaren","stateRegistrationNumber": "В362АЕ-41", "color": "Белый", "year": "2023", "isAvailable": true}
 ]

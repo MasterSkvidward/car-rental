@@ -35,10 +35,12 @@ const MySelect:FC<MySelectProps> = ({options, selectedOption, setSelectedClient}
     }
 
     useEffect(() => {
-        setSelectedClient(options[0].driverLicenceNumber)
+        setSelectedClient(options[0]?.driverLicenceNumber)
         document.addEventListener('click', handlerDocumentClick);
         return () => document.removeEventListener("click",  handlerDocumentClick);
     }, [])
+
+    if (!options.length) return (<></>)
 
     return (
         <div className={classes.MySelect} ref={MySelect}>

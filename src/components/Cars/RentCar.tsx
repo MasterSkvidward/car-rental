@@ -20,7 +20,7 @@ const RentCar:FC<RentCarProps> = ({car, setRentVisible}) => {
     const {clients} = useTypedSelector(state => state.client);
     const dispatch = useDispatch();
 
-    const [dateValue, setDateValue] = useState<string>('');
+    const [dateValue, setDateValue] = useState<string>('2023-04-28');
     const [selectedClient, setSelectedClient] = useState<string>('')
 
     const handlerClickOk = () => {
