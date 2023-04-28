@@ -10,7 +10,7 @@ class Link {
     }
 }
 
-export class CircularLinkedList {
+export class CircularLinkedList  {
     head: Link | null = null;
     tail: Link | null = null;
     count: number = 0;
@@ -51,7 +51,7 @@ export class CircularLinkedList {
         }
     }
 
-    public Delete(value: string):void {
+    public Remove(value: string):void {
         let current: Link | null = this.head;
         while (current) {
             if (current.Value.stateRegistrationNumber === value)
@@ -98,7 +98,7 @@ export class CircularLinkedList {
         return result;
     }
 
-    public GetAllElements(): IRent[] {
+    public GetArray(): IRent[] {
         let result:IRent[] = [];
         let current = this.head;
         while (current) {

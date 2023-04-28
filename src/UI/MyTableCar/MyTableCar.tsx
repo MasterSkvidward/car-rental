@@ -1,24 +1,40 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 
 import car from '../../images/car.png';
-import './MyTable.module.scss';
+import './MyTableCar.module.scss';
 import { ICar } from '../../store/reducers/car/types';
 import { IClient } from '../../store/reducers/client/types';
+import MyModal from '../MyModal/MyModal';
+import ShowCar from '../../components/Cars/ShowCar';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 
-interface MyTableProps {
-    items: ICar[] | IClient[];
+interface MyTableCarProps {
+    items: ICar[];
     headlines: string[];
     image?: string;
 }
 
-const MyTable:FC<MyTableProps> = ({items, headlines, image}) => {
-    console.log(items);
+const MyTableCar:FC<MyTableCarProps> = ({items, headlines, image}) => {
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [currentCar, setCurrentCar] = useState<ICar>();
+    const {currentClient} = useTypedSelector(state => state.client);
+  
+    const handlerClick = (car: ICar) => {
+        setCurrentCar(car);
+        setModalVisible(true);
+    }
 
-    if (items.length === 0) return(<></>);
+
+    if (!items.length) return (
+        <div style={{fontSize: 25}}>Список пуст!</div>
+    )
+       
     
     return (
-        <table>
+        <>
+              <MyModal visible={modalVisible} setVisible={setModalVisible}><ShowCar modalVisible={modalVisible} currentClient={currentClient} car={currentCar} setModalVisible={setModalVisible}/></MyModal>
+              <table>
             <thead>
                 <tr>
                     {headlines.map((item, index) => 
@@ -30,7 +46,7 @@ const MyTable:FC<MyTableProps> = ({items, headlines, image}) => {
             </thead>
             <tbody>
                 {items.map((item, index) => 
-                    <tr key={index}>
+                    <tr key={index} onClick={() => handlerClick(item)}>
                         <td><img src={image} alt="" width={52} height={52}/></td>
                         {Object.values(item).map((elem, index) =>
                             <td key={index}>{
@@ -43,7 +59,9 @@ const MyTable:FC<MyTableProps> = ({items, headlines, image}) => {
                 )}
             </tbody>
         </table>
+        </>
+       
     );
 }
 
-export default MyTable;
+export default MyTableCar;

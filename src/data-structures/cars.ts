@@ -1,5 +1,5 @@
 import { ICar } from '../store/reducers/car/types';
-import { stringCompare } from '../utils/utils';
+import { directSearch } from '../utils/utils';
 
 class Element {
     Key: string | null;
@@ -18,80 +18,23 @@ class Element {
 }
 
 export class HashTable {
-    segments: Element[] = new Array(HashTable.size);
-    static size: number = 100;
+    tableSegments: Element[] = new Array(HashTable.segmentsSize);
+    static segmentsSize: number = 100;
     maxCollision: number = 5;
 
     constructor() {
-        for (let i = 0; i < HashTable.size; i++) {
-            this.segments[i] = new Element();
-        }
-    }
-
-    ClearHash():void {
-        this.segments = new Array(HashTable.size);
-        for (let i = 0; i < HashTable.size; i++) {
-            this.segments[i] = new Element();
-        }
-        HashTable.size = 100;
-        this.maxCollision = 5;
-    }
-
-    HashFun(currentKey:string):number {
-        let hashSum = 0;
-        console.log(currentKey);
-        
-        for (let i = 0; i < currentKey?.length; i++) {
-            hashSum += Math.pow(currentKey[i].charCodeAt(0), 2)
-        }
-
-        hashSum %= HashTable.size;
-        return hashSum;
-    }
-
-    SecondHashFun(currentKey:string):number {
-        let hashSum = 0;
-        let k = 2;
-
-        for (let i = 0; i < currentKey.length; i++) {
-            hashSum += Math.pow(currentKey[i].charCodeAt(0) * k, 2);
-            k += 1;
-        }
-
-        hashSum %= HashTable.size;
-        return hashSum;
-    }
-
-    RehashFun():void {
-        let coeff:number = 2;
-
-        let newSegments:Element[] = new Array(HashTable.size);
-
-        for (let i = 0; i < HashTable.size; i++) {
-            newSegments[i] = this.segments[i];
-        }
-
-        this.segments = new Array(HashTable.size * coeff);
-
-        for (let j = 0; j < HashTable.size * coeff; j++) {
-            this.segments[j] = new Element();
-        }
-
-        HashTable.size *= coeff;
-
-        for (const item of newSegments) {
-            if (item.Key)
-                this.Insert(item.Key, item.Value, true)
+        for (let i = 0; i < HashTable.segmentsSize; i++) {
+            this.tableSegments[i] = new Element();
         }
     }
 
     Insert(key:string, value:ICar | null, flag:boolean = false):void {     
         let collision:number = 0;
-        let originalAddress:number = (this.HashFun(key) + collision * this.SecondHashFun(key)) % HashTable.size;
+        let originalAddress:number = (this.HashFunc(key) + collision * this.SecondHashFunc(key)) % HashTable.segmentsSize;
 
         while (true) {
-            let address:number = (this.HashFun(key) + collision * this.SecondHashFun(key)) % HashTable.size;
-            let segment:Element = this.segments[address];
+            let address:number = (this.HashFunc(key) + collision * this.SecondHashFunc(key)) % HashTable.segmentsSize;
+            let segment:Element = this.tableSegments[address];
 
             if (segment.isEmpty || segment.isDeleted) {
                 segment.Key = key;
@@ -104,7 +47,7 @@ export class HashTable {
 
             if (collision > this.maxCollision && flag) {
                 collision = 0;
-                this.RehashFun()
+                this.ReHashFunc()
                 continue;
             }
 
@@ -112,13 +55,13 @@ export class HashTable {
         }
     }
 
-    Remove(key:string):number {
+    Delete(key:string):number {
         let collision:number = 0;
 
         while (true) {
-            let address:number = (this.HashFun(key) + collision * this.SecondHashFun(key)) % HashTable.size;
+            let address:number = (this.HashFunc(key) + collision * this.SecondHashFunc(key)) % HashTable.segmentsSize;
 
-            let segment:Element = this.segments[address];
+            let segment:Element = this.tableSegments[address];
 
             if (segment.Key === key) {
                 segment.Key = null;
@@ -134,12 +77,13 @@ export class HashTable {
         }
     }
 
-    Find(key:string):ICar | null {
+
+    FindElement(key:string):ICar | null {
         let collision:number = 0;
 
         while (true) {
-            let address:number = (this.HashFun(key) + collision * this.SecondHashFun(key)) % HashTable.size;
-            let segment:Element = this.segments[address];
+            let address:number = (this.HashFunc(key) + collision * this.SecondHashFunc(key)) % HashTable.segmentsSize;
+            let segment:Element = this.tableSegments[address];
 
             if (segment.Key === key)
                 return segment.Value;
@@ -153,8 +97,8 @@ export class HashTable {
         let collision:number = 0;
 
         while (true) {
-            let address:number = (this.HashFun(key) + collision * this.SecondHashFun(key)) % HashTable.size;
-            let segment:Element = this.segments[address];
+            let address:number = (this.HashFunc(key) + collision * this.SecondHashFunc(key)) % HashTable.segmentsSize;
+            let segment:Element = this.tableSegments[address];
 
             if (segment.Key === key)
                 return segment;
@@ -166,32 +110,83 @@ export class HashTable {
 
     FindList(key:string):Array<ICar | null> {
 
-        if (!key) return this.GetArray();
+        if (!key) return this.GetAllCars();
 
         let arr:Array<ICar | null> = [];
         
-        for (let i = 0; i < HashTable.size; i++) {
-            const text = this.segments[i].Value?.brand;
+        for (let i = 0; i < HashTable.segmentsSize; i++) {
+            const text = this.tableSegments[i].Value?.brand;
             if (text)
-                if (stringCompare(text, key))
-                    arr.push(this.segments[i].Value)
+                if (directSearch(text, key))
+                    arr.push(this.tableSegments[i].Value)
         }
 
         return arr;
     }
 
-    GetArray():Array<ICar | null> {
+    GetAllCars():Array<ICar | null> {
         let arr: Array<ICar | null> = [];
-        for (let i = 0; i < HashTable.size; i++) {
-            if (this.segments[i].Key)
-                arr.push(this.segments[i].Value);
+        for (let i = 0; i < HashTable.segmentsSize; i++) {
+            if (this.tableSegments[i].Key)
+                arr.push(this.tableSegments[i].Value);
         }
         return arr;
     }
 
-    ShowTable():void {
-        for (let i = 0; i < HashTable.size; i++) {
-            console.log(this.segments[i].Key, this.segments[i].Value)
+
+    ClearHash():void {
+        this.tableSegments = new Array(HashTable.segmentsSize);
+        for (let i = 0; i < HashTable.segmentsSize; i++) {
+            this.tableSegments[i] = new Element();
+        }
+        HashTable.segmentsSize = 100;
+        this.maxCollision = 5;
+    }
+
+    HashFunc(currentKey:string):number {
+        let hashSum = 0;
+        
+        for (let i = 0; i < currentKey?.length; i++) {
+            hashSum += Math.pow(currentKey[i].charCodeAt(0), 2)
+        }
+
+        hashSum %= HashTable.segmentsSize;
+        return hashSum;
+    }
+
+    SecondHashFunc(currentKey:string):number {
+        let hashSum = 0;
+        let count = 2;
+
+        for (let i = 0; i < currentKey.length; i++) {
+            hashSum += Math.pow(currentKey[i].charCodeAt(0) * count, 2);
+            count += 1;
+        }
+
+        hashSum %= HashTable.segmentsSize;
+        return hashSum;
+    }
+
+    ReHashFunc():void {
+        let coeff:number = 2;
+
+        let newtableSegments:Element[] = new Array(HashTable.segmentsSize);
+
+        for (let i = 0; i < HashTable.segmentsSize; i++) {
+            newtableSegments[i] = this.tableSegments[i];
+        }
+
+        this.tableSegments = new Array(HashTable.segmentsSize * coeff);
+
+        for (let j = 0; j < HashTable.segmentsSize * coeff; j++) {
+            this.tableSegments[j] = new Element();
+        }
+
+        HashTable.segmentsSize *= coeff;
+
+        for (const item of newtableSegments) {
+            if (item.Key)
+                this.Insert(item.Key, item.Value, true)
         }
     }
 }

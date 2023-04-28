@@ -1,8 +1,7 @@
 import { IClient } from "../store/reducers/client/types";
-import { stringCompare } from "../utils/utils";
+import { directSearch } from "../utils/utils";
 
 class Node {
-
     data: IClient;
     left: Node | null;
     right: Node | null;
@@ -17,14 +16,14 @@ class Node {
 export class AVLTree {
 
     private root: Node | null;
-    public treeLists: IClient[];
+    public treeElements: IClient[];
 
     constructor() {
         this.root = null;
-        this.treeLists = [];
+        this.treeElements = [];
     }
 
-    public insert(data:IClient):void {
+    public Insert(data:IClient):void {
         let newNode = new Node(data);
 
         if (this.root === null)
@@ -33,32 +32,33 @@ export class AVLTree {
             this.root = this.insertNode(this.root, newNode)
     }
 
-    public detour(callback?: (data: IClient) => void):void {
+    public Delete(findLicence: string):void {
+        this.root = this.deleteNode(this.root, findLicence);
+        this.Detour();
+    }
+
+    public Detour(callback?: (data: IClient) => void):void {
 
         const func = (data: IClient) => {
-            this.treeLists.push(data)
+            this.treeElements.push(data)
         }
+
         if (!callback)
-            this.treeLists = [];
+            this.treeElements = [];
         this.detourTree(this.root, callback ? callback : func);
     }
 
-    public delete(findLicence: string):void {
-        this.root = this.deleteNode(this.root, findLicence);
-        this.detour();
-    }
-
     public Find(key: string):IClient[] {
-        if (!key) return this.treeLists;
+        if (!key) return this.treeElements;
 
         let list: IClient[] = [];
 
         const callback = (data: IClient) => {
-            if (stringCompare(data.address, key) || stringCompare(data.fullName, key)) {
+            if (directSearch(data.address, key) || directSearch(data.fullName, key)) {
                 list.push(data);
             }
         }
-        this.detour(callback);
+        this.Detour(callback);
 
         return list;
     }
@@ -97,22 +97,22 @@ export class AVLTree {
 
     public clearTree():void {
         this.root = null;
-        this.treeLists = [];
+        this.treeElements = [];
     }
 
 
-    private insertNode(current: Node | null, n: Node):Node {
+    private insertNode(current: Node | null, node: Node):Node {
 
         if (!current) {
-            current = n;
+            current = node;
             return current;
         }
-        else if (n.data.driverLicenceNumber < current.data.driverLicenceNumber) {
-            current.left = this.insertNode(current.left, n);
+        else if (node.data.driverLicenceNumber < current.data.driverLicenceNumber) {
+            current.left = this.insertNode(current.left, node);
             current = this.balance(current);
         }
-        else if (n.data.driverLicenceNumber > current.data.driverLicenceNumber) {
-            current.right = this.insertNode(current.right, n);
+        else if (node.data.driverLicenceNumber > current.data.driverLicenceNumber) {
+            current.right = this.insertNode(current.right, node);
             current = this.balance(current);
         }
 
@@ -127,22 +127,22 @@ export class AVLTree {
         }
     }
 
-    private deleteNode(current: Node | null, findLicence: string):Node | null {
+    private deleteNode(current: Node | null, licenceNumber: string):Node | null {
         let parent: Node | null;
 
         if (!current)
             return null
         else {
-            if (findLicence < current.data.driverLicenceNumber) {
-                current.left = this.deleteNode(current.left, findLicence);
+            if (licenceNumber < current.data.driverLicenceNumber) {
+                current.left = this.deleteNode(current.left, licenceNumber);
                 if (this.bfactor(current) === -2)
                     if (this.bfactor(current.right) <= 0)
                         current = this.RotateRR(current);
                     else
                         current = this.RotateRL(current);
             }
-            else if (findLicence > current.data.driverLicenceNumber) {
-                current.right = this.deleteNode(current.right, findLicence);
+            else if (licenceNumber > current.data.driverLicenceNumber) {
+                current.right = this.deleteNode(current.right, licenceNumber);
                 if (this.bfactor(current) === 2) 
                     if (this.bfactor(current.left) >= 0)
                         current = this.RotateLL(current);
@@ -187,58 +187,58 @@ export class AVLTree {
         return height;
     }
 
-    private balance(current: Node): Node {
+    private balance(currentElement: Node): Node {
 
-        let b_factor = this.bfactor(current);
+        let b_factor = this.bfactor(currentElement);
 
         if (b_factor > 1) {
-            if (this.bfactor(current.left) > 0)
-                current = this.RotateLL(current);
+            if (this.bfactor(currentElement.left) > 0)
+            currentElement = this.RotateLL(currentElement);
             else
-                current = this.RotateLR(current);
+            currentElement = this.RotateLR(currentElement);
         }
         else if (b_factor < -1) {
-            if (this.bfactor(current.right) > 0)
-                current = this.RotateRL(current);
+            if (this.bfactor(currentElement.right) > 0)
+                currentElement = this.RotateRL(currentElement);
             else 
-                current = this.RotateRR(current);
+            currentElement = this.RotateRR(currentElement);
         }
 
-        return current;
+        return currentElement;
     }
 
     private RotateRR(node:Node):Node {
-        let pivot = node.right;
-        if (pivot) {
-            node.right = pivot.left;
-            pivot.left = node;
-            return pivot;
+        let tmp = node.right;
+        if (tmp) {
+            node.right = tmp.left;
+            tmp.left = node;
+            return tmp;
         }
         return node;
     }
 
     private RotateLL(node:Node):Node {
-        let pivot = node.left;
-        if (pivot) {
-            node.left = pivot.right;
-            pivot.right = node;
-            return pivot      
+        let tmp = node.left;
+        if (tmp) {
+            node.left = tmp.right;
+            tmp.right = node;
+            return tmp      
         }
         return node;
     }
 
     private RotateLR(node:Node):Node {
-        let pivot = node.left;
-        if (pivot) {
-            node.left = this.RotateRR(pivot);           
+        let tmp = node.left;
+        if (tmp) {
+            node.left = this.RotateRR(tmp);           
         }
         return this.RotateLL(node); 
     }
 
     private RotateRL(node:Node):Node {
-        let pivot = node.right;
-        if (pivot) {
-            node.right = this.RotateLL(pivot);           
+        let tmp = node.right;
+        if (tmp) {
+            node.right = this.RotateLL(tmp);           
         }
         return this.RotateRR(node); 
     }

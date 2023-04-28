@@ -1,34 +1,34 @@
 import { AVLTree } from "../../../data-structures/clients";
 import { ClientAction, ClientActionsEnum, IClient } from "./types";
 
-let avlTree: AVLTree;
 
 export const ClientActionCreators = {
     InitializeAVLTREE: ():ClientAction => {  
         const response: IClient[] = require('../../server/clients.json')
-        avlTree = new AVLTree()
+        const avlTree = new AVLTree()
         const uniqueKeys = [];
 
         for (const element of response) {
-            avlTree.insert(element);
+            avlTree.Insert(element);
             uniqueKeys.push(element.driverLicenceNumber);
         }
 
-        avlTree.detour();
-        let clients: IClient[] = avlTree.treeLists;
+        avlTree.Detour(); 
 
-        return {type: ClientActionsEnum.INITIALIZE_AVLTREE, payload: {clients: clients, uniqueKeys: uniqueKeys}}
+        return {type: ClientActionsEnum.INITIALIZE_AVLTREE, payload: {avlTree: avlTree, uniqueKeys: uniqueKeys}}
     }, 
 
+    AddClient: (client: IClient):ClientAction => ({type: ClientActionsEnum.ADD_CLIENT, payload: client}),
+
+    DeleteClient: (driveNumber: string):ClientAction => ({type: ClientActionsEnum.DELETE_CLIENT, payload: driveNumber}),
+
+    FindClient: (driveNumber:string):ClientAction => ({type: ClientActionsEnum.FIND_CLIENT, payload: driveNumber}),
+
     FindClientList: (data:string):ClientAction => {
-        let result = avlTree.Find(data);
-        return {type: ClientActionsEnum.FIND_CLIENT_LIST, payload: result}
+        return {type: ClientActionsEnum.FIND_CLIENT_LIST, payload: data}
     },
 
     DeleteAll: ():ClientAction => {
-        avlTree.clearTree();
-        return {type: ClientActionsEnum.DELETE_ALL, payload: []}
+        return {type: ClientActionsEnum.DELETE_ALL}
     }
-
-    // AddClient: (client: IClient):ClientAction => ({type: ClientActionsEnum.ADD_CLIENT, payload: client})
 }

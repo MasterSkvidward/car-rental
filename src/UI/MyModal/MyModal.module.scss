@@ -1,0 +1,18 @@
+.myModal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
+    background-color: rgba(18, 17, 17, 0.9);
+    width: 100vw;
+    height: 100vh;
+}
+
+.myModal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}

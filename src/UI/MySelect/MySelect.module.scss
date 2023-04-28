@@ -1,0 +1,72 @@
+.MySelect {
+    font-size: 20px;
+    position: relative;
+
+    &__body {
+        display: inline-flex;
+        align-items: center;
+        
+        border-radius: 7px;
+        cursor: pointer;
+        user-select: none;
+        transition: all 0.3s;
+        padding: 7px 8px;
+
+        background-color: rgba(233, 233, 233, 0.9);
+
+        &:hover {
+            background-color: rgba(197, 200, 200, 0.9);
+        }
+    }
+
+
+    &__btn {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 0px 9px;
+        color: inherit;
+        // text-transform: uppercase;
+        background-color: inherit;
+        cursor: pointer;
+    }
+
+    &__options {
+        width: 250px;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 1);
+        padding: 15px 0px;
+        position: absolute;
+        top: 42px;
+        left: 0;
+        display: none;
+        flex-direction: column;
+        row-gap: 8px;
+        z-index: 10;
+        transition: height 1s ease;
+
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5); 
+    }
+
+    &__option {
+        cursor: pointer;
+        padding: 12px 15px;
+        font-size: 17px;
+        transition: 0.1s;
+
+        &:hover {
+            background-color: rgba(197, 200, 200, 0.9);
+        }
+    }
+}
+
+.active {
+    display: flex;
+}
+
+.selected {
+    background-color: rgb(189, 60, 60);
+
+    &:hover {
+        background-color: rgb(189, 60, 60);
+    }
+}

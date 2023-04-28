@@ -1,14 +1,7 @@
 .car {
     // background-color: rgb(234, 233, 233);
-    padding: 20px 5px 50px 5px;
+    padding: 20px 5px 20px 5px;
     display: flex;
     flex-direction: column;
     row-gap: 20px;
-
-    &__title {
-        font-size: 19px;
-        line-height: 120%;
-        margin: 20px 0px 0px 0px;
-        font-weight: 600;
-    }
 }

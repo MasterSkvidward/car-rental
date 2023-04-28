@@ -1,0 +1,109 @@
+.car {
+    background-color: rgb(255, 255, 255);
+    color: black;
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px 30px;
+
+    &__renter {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        column-gap: 15px;
+        margin-top: 30px;
+    }
+
+    &__arend {
+        display: flex;
+        column-gap: 10px;
+    }
+
+    &__arendator {
+        font-size: 16px;
+    }
+
+    &__fullname {
+        color: black;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    &__date {
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+
+        div {
+            
+        }
+
+        &_from {
+            display: flex;
+            column-gap: 10px;
+        }
+
+        &_to {
+            display: flex;
+            column-gap: 10px;
+        }
+    }
+
+    
+    &__title {
+        padding: 10px 0px;
+        margin: 0px 0px 15px 0px;
+        font-size: 22px;
+        font-weight: 600;
+        box-shadow: 0 3px 2px -2px rgb(41, 41, 41);
+    }
+
+    &__first {
+        display: flex;
+        column-gap: 20px;
+    }
+
+    &__second {
+        display: flex;
+        column-gap: 20px;
+    }
+
+    &__buttons {
+        margin-top: auto;
+        // margin: auto 20px 10px 0px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__not-found {
+        margin: auto auto;
+        font-size: 25px;
+        font-weight: 600;
+    }
+
+    tbody {
+    
+        tr {
+            transition: 0.1s ease-in-out;
+            cursor: pointer;
+    
+            &:hover{
+                background-color: none !important;
+                transform: none !important;
+            }
+        }
+    }
+}
+
+
+
+.bold {
+    font-weight: 600;
+}
+
+
+

@@ -2,34 +2,35 @@ import { HashTable } from "../../../data-structures/cars";
 import { CarAction, CarActionsEnum, ICar } from "./types";
 
 
-let hashTable: HashTable;
 
 export const CarActionCreators = {
     InitializeHashtable: ():CarAction => {
-        const cars: string[] = [];
-        hashTable = new HashTable();
+        const carKeys: string[] = [];
+        const hashTable = new HashTable();
         
         const response: ICar[] = require('../../server/cars.json');
 
         for (const element of response) {
             hashTable.Insert(element.stateRegistrationNumber, element);
-            cars.push(element.stateRegistrationNumber)
+            carKeys.push(element.stateRegistrationNumber)
         }
 
-        let result:(ICar | null)[] = hashTable.GetArray();
-
-        return {type: CarActionsEnum.INITIALIZE_HASHTABLE, payload: result};
+        return {type: CarActionsEnum.INITIALIZE_HASHTABLE, payload: {hashTable: hashTable, carKeys:carKeys}};
     }, 
 
     AddCar: (car: ICar):CarAction => ({type: CarActionsEnum.ADD_CAR, payload: car}),
 
+    DeleteCar: (registrationNumber: string):CarAction => ({type: CarActionsEnum.DELETE_CAR, payload: registrationNumber}),
+
+    FindCar: (registrationNumber: string):CarAction => ({type: CarActionsEnum.FIND_CAR, payload: registrationNumber}),
+
     FindCarList: (brand: string):CarAction => {
-        let result:(ICar | null)[] = hashTable.FindList(brand);
-        return {type: CarActionsEnum.FIND_CAR_LIST, payload: result}
+        return {type: CarActionsEnum.FIND_CAR_LIST, payload: brand}
     },
 
     DeleteAllCars: ():CarAction => {
-        hashTable.ClearHash();
-        return {type: CarActionsEnum.DELETE_ALL_CARS, payload: []}
+        return {type: CarActionsEnum.DELETE_ALL_CARS}
     },
+
+    ChangeAvailableStatus: (registrationNumber: string, available: boolean):CarAction => ({type: CarActionsEnum.CHANGE_AVAILABLE_STATUS, payload: {registrationNumber: registrationNumber, available: available}}),
 }

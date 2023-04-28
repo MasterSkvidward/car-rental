@@ -1,7 +1,6 @@
 import React, {FC, MouseEvent, useState, useEffect} from 'react';
 import classes from '../../styles/List.module.scss';
 import Title from '../../UI/Title/Title';
-import MyTable from '../../UI/MyTable/MyTable';
 import { CarActionsEnum, ICar} from '../../store/reducers/car/types';
 import { IClient } from '../../store/reducers/client/types';
 import MyButton from '../../UI/MyButton/MyButton';
@@ -10,17 +9,18 @@ import { CarActionCreators } from '../../store/reducers/car/action-creators';
 import { ClientActionCreators } from '../../store/reducers/client/action-creators';
 import MyInput from '../../UI/MyInput/MyInput';
 import useDebounce from '../../hooks/useDebounce';
+import MyTableCar from '../../UI/MyTableCar/MyTableCar';
+import { RentActionCreators } from '../../store/reducers/rent/action-creators';
 
 
-interface ListProps {
+interface ListCarProps {
     title: string;
-    items: ICar[] | IClient[];
+    items: ICar[];
     headlines: string[];
     image?: string;
-    isCarList: boolean;
 }
 
-const List:FC<ListProps> = ({title, items, headlines, image, isCarList}) => {
+const ListCar:FC<ListCarProps> = ({title, items, headlines, image}) => {
 
     const dispatch = useDispatch();
     const [value, setValue] = useState<string>('');
@@ -28,33 +28,32 @@ const List:FC<ListProps> = ({title, items, headlines, image, isCarList}) => {
 
 
     const handlerClick = (e: MouseEvent):void => {
-        isCarList
-            ? dispatch(CarActionCreators.DeleteAllCars())
-            : dispatch(ClientActionCreators.DeleteAll())
+        dispatch(CarActionCreators.DeleteAllCars());
+        dispatch(RentActionCreators.DeleteAllRents());
     }
 
   
     function searchItems() {
-      
-        isCarList
-            ? dispatch(CarActionCreators.FindCarList(value))
-            : dispatch(ClientActionCreators.FindClientList(value))
+        dispatch(CarActionCreators.FindCarList(value))
     }
 
     useEffect(() => {
         debouncedSearch();
     }, [value])
 
+
     return (
         <div className={[classes['list'], '_container'].join(' ')}>
             <Title value={title}/>
-            <MyInput placeholder={isCarList? 'Найти автомобиль...' : 'Найти клиента...'} setValue={setValue}/>
-            <MyTable items={items} headlines={headlines} image={image}/>
-            <div className={classes['list__btn']} onClick={handlerClick}>
+            <MyInput placeholder={'Найти автомобиль...'} setValue={setValue}/>
+           
+            <MyTableCar items={items} headlines={headlines} image={image}/>
+
+            <div className={items.length? classes['list__btn']: classes['disabled']} onClick={handlerClick}>
                 <MyButton value='Удалить'/>
             </div>
         </div>
     );
 }
 
-export default List;
+export default ListCar;

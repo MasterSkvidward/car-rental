@@ -1,4 +1,4 @@
-export const stringCompare = (text:string, word:string):boolean => {
+export const directSearch = (text:string, word:string):boolean => {
     text = text.toLowerCase();
     word = word.toLowerCase();
 

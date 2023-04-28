@@ -4,11 +4,12 @@ import classes from './MyButton.module.scss';
 
 interface MyButtonProps {
     value: string;
+    color?: string; 
 }
 
-const MyButton:FC<MyButtonProps> = ({value}) => {
+const MyButton:FC<MyButtonProps> = ({value, color}) => {
     return (
-       <button className={classes['button']}>
+       <button className={color? [classes[color], classes['button']].join(' '):classes['button']} onClick={e => e.preventDefault()}>
            {value}
        </button>
     );

@@ -1,0 +1,17 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+
+    &__button {
+        display: inline-block;
+        align-self: flex-start;
+    }
+
+    &__title {
+        font-size: 19px;
+        line-height: 120%;
+        margin: 20px 0px 0px 0px;
+        font-weight: 600;
+    }
+}

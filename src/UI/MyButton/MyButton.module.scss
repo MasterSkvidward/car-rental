@@ -1,26 +1,50 @@
 .button {
     // flex: 0 0 30px;
     // max-width: 100px;
-    padding: 12px 18px;
+    padding: 8px 25px;
     text-align:center;
     background-color: rgb(243, 105, 105);
-    color: white;
+    color: rgb(0, 0, 0);
     cursor: pointer;
     transition: 0.2s;
-    width: 100px;
+    width: auto;
     height: 40px;
     font-weight: 500;
 
     &:hover {
-        background-color: rgb(202, 117, 117);
+        background-color: rgb(160, 75, 75);
     }
 
     &:active {
-        background-color: white;
-        color: black;
-        border: 1px solid black;
-        width: 98px;
-        height: 38px;
-        font-weight: 600;
+        // background-color: white;
+        // color: black;
+        // border: 1px solid black;
+        // width: auto;
+        // height: 38px;
+        // font-weight: 600;
+    }
+}
+
+.blue {
+    background-color:rgba(72, 191, 76, 0.7);
+     
+    color: rgb(0, 0, 0);
+
+    &:hover {
+        background-color: rgb(72, 191, 76);
+    }
+}
+
+.black {
+    background-color: black;
+    color: white;
+    // font-size: 15px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgb(62, 61, 61);
     }
 }

@@ -1,9 +1,9 @@
 [
-    {"fullName":"TANYA TANYA", "driverLicenceNumber":"11 АВ 000000","address":"Petrovo","passportData":"4817457164"},
-    {"fullName":"VANYA VANYA", "driverLicenceNumber":"11 ЕК 000005","address":"Aliyskaya","passportData":"5817557165"},
-    {"fullName":"VANYA VANYA", "driverLicenceNumber":"11 МН 000006","address":"Aliyskaya","passportData":"6817557165"},
-    {"fullName":"VANYA VANYA", "driverLicenceNumber":"11 АВ 000007","address":"Sadovaya","passportData":"7817557165"},
-    {"fullName":"VANYA VANYA", "driverLicenceNumber":"11 ОР 000008","address":"Aliyskaya","passportData":"8817557165"},
-    {"fullName":"VANYA VANYA", "driverLicenceNumber":"11 АВ 000009","address":"Maloy zemli","passportData":"9817557165"},
-    {"fullName":"VANYA VANYA", "driverLicenceNumber":"11 УХ 000010","address":"Nasha","passportData":"10817557165"}
+    {"fullName":"Tanya", "driverLicenceNumber":"11 АВ 000000","address":"Petrovo","passportData":"4817457164"},
+    {"fullName":"Vanya", "driverLicenceNumber":"11 ЕК 000005","address":"Aliyskaya","passportData":"5817557165"},
+    {"fullName":"Masha", "driverLicenceNumber":"11 МН 000006","address":"Aliyskaya","passportData":"6817557165"},
+    {"fullName":"Boris", "driverLicenceNumber":"11 АВ 000007","address":"Sadovaya","passportData":"7817557165"},
+    {"fullName":"George", "driverLicenceNumber":"11 ОР 000008","address":"Aliyskaya","passportData":"8817557165"},
+    {"fullName":"John", "driverLicenceNumber":"11 АВ 000009","address":"Maloy zemli","passportData":"9817557165"},
+    {"fullName":"Jason", "driverLicenceNumber":"11 УХ 000010","address":"Nasha","passportData":"10817557165"}
 ]
