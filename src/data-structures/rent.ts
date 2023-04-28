@@ -1,85 +1,77 @@
 import { IRent } from "../store/reducers/rent/types";
 
-class Link {
-    Value: IRent;
-    Next: Link | null = null;
-    Prev: Link | null = null;
+class Node {
+    value: IRent;
+    next: Node | null = null;
 
     constructor(value: IRent) {
-        this.Value = value;
+        this.value = value;
     }
 }
 
 export class CircularLinkedList {
-    head: Link | null = null;
-    tail: Link | null = null;
-    count: number = 0;
+    head: Node | null = null;
+    tail: Node | null = null;
+    length: number = 0;
 
-    public Add(value: IRent):void {
-        let link = new Link(value);
+    constructor () {
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+    }
 
-        if (!this.head)
-            this.head = link;
-        else if (this.tail) {
-            this.tail.Next = link;
-            link.Prev = this.tail;
+    public Append(value: IRent):void {
+        let node = new Node(value);
+
+        if (!this.head) {
+            this.head = node;
+            this.tail = node;
         }
-        this.count++;
-        this.tail = link;
+        else if (this.tail) {
+            this.tail.next = node;
+            this.tail = node;
+        }
+
+        this.length++;
+        if (this.tail) {
+            this.tail.next = this.head;
+        }
+       
         this.Sort();
     }
 
-    public DeleteByCarNumber(regNumber: string):void {
-        let current: Link | null = this.head;
-        while (current) {
-            if (current.Value.stateRegistrationNumber === regNumber)
-                break;
-            current = current.Next;
-        }
-
-        if (current) {
-            this.count--;
-            if (current.Next)
-                current.Next.Prev = current.Prev;
-            else
-                this.tail = current.Prev;
-
-            if (current.Prev)
-                current.Prev.Next = current.Next;
-            else
-                this.head = current.Next;
-        }
-    }
 
     public Delete(value: string):void {
-        let current: Link | null = this.head;
-        while (current) {
-            if (current.Value.stateRegistrationNumber === value)
-                break;
-            current = current.Next;
+        let current: Node | null = this.head;
+
+        if (current?.value) {
+            this.length--;
+            if (this.head) this.head = this.head?.next;
+            if (this.tail?.next) this.tail.next = this.head;
+            return;
         }
 
-        if (current) {
-            this.count--;
-            if (current.Next)
-                current.Next.Prev = current.Prev;
-            else
-                this.tail = current.Prev;
-
-            if (current.Prev)
-                current.Prev.Next = current.Next;
-            else
-                this.head = current.Next;
+        while (current?.next) {
+            if (current.value.stateRegistrationNumber === value) {
+                if (current.next === this.tail) {
+                    this.tail = current;
+                }
+            }
+                
+            current.next = current.next.next;
+            this.length--;
+            return;
         }
+
     }
 
     public FindCarRent(value: string):IRent | null {
-        let current: Link | null = this.head;
+        let current: Node | null = this.head;
 
         while (current) {
-            if (current.Value.stateRegistrationNumber === value)
-                return current.Value;
-            current = current.Next;
+            if (current.value.stateRegistrationNumber === value)
+                return current.value;
+            current = current.next;
         }
 
         return null;
@@ -87,12 +79,12 @@ export class CircularLinkedList {
 
     public FindClientRent(value: string):IRent[] {
         let result: IRent[] = [];
-        let current: Link | null = this.head;
+        let current: Node | null = this.head;
 
         while (current) {
-            if (current.Value.driverLicenceNumber === value)
-                result.push(current.Value);
-            current = current.Next;
+            if (current.value.driverLicenceNumber === value)
+                result.push(current.value);
+            current = current.next;
         }
 
         return result;
@@ -102,8 +94,8 @@ export class CircularLinkedList {
         let result:IRent[] = [];
         let current = this.head;
         while (current) {
-            result.push(current.Value);
-            current = current.Next;
+            result.push(current.value);
+            current = current.next;
         }
         return result;
     }
@@ -111,68 +103,36 @@ export class CircularLinkedList {
     public ClearList(): void {
         this.head = null;
         this.tail = null;
-        this.count = 0;
+        this.length = 0;
     }
 
     private Sort(): void {
-        let i = this.head;
+        const counts: number[] = [];
+        let current: Node | null = this.head;
 
-        while (i) {
-            let j = this.head;
-            let prev:Link | null = null;
-            while (j) {
-                if (j.Next) {
-                    if (j.Value.stateRegistrationNumber > j.Next.Value.stateRegistrationNumber) {
-                        if (prev === null) {
-                            let temp = j.Next;
-                            this.head = j.Next;
-                            j.Next = temp.Next;
-                            temp.Next = j;
-                        }
-                        else {
-                            let temp = j.Next;
-                            j.Next = temp.Next;
-                            prev.Next = temp;
-                            temp.Next = j;
-                        }
-                    }
-                }
-                else {
-                    if (i)
-                        i = i.Next;
-                    this.tail = j;
-                }
-                prev = j;
-                j = j.Next;
+        while (current !== null) {
+            let tmp = current.value;
+            counts[Number(tmp.stateRegistrationNumber)] = (counts[Number(tmp.stateRegistrationNumber)] || 0) + 1;
+            current = current.next;
+          }
+          
+          let sortedPositions: number[] = [];
+          sortedPositions.length = this.length;
+          let index = 0;
+          
+          for (let i = 0; i < counts.length; i++) {
+            if (counts[i] !== undefined) {
+              for (let j = 0; j < counts[i]; j++) {
+                sortedPositions[index] = i;
+                index++;
+              }
             }
-
-            j = prev;
-            let next:Link | null = null;
-            while (j) {
-                if (j.Prev) {
-                    if ( j.Prev.Value.stateRegistrationNumber > j.Value.stateRegistrationNumber) {
-                        if (next === null) {
-                            let temp = j.Prev;
-                            this.tail = j.Prev;
-                            j.Prev = temp.Prev;
-                            temp.Prev = j;
-                        }
-                        else {
-                            let temp = j.Prev;
-                            j.Prev = temp.Prev;
-                            next.Prev = temp;
-                            temp.Prev = j;
-                        }
-                    }
-                }
-                else {
-                    if (i)
-                        i = i.Next;
-                    this.head = j;
-                }
-                next = j;
-                j = j.Prev;
-            }
-        }
+          }
+          
+          let currentNode = this.head;
+          for (let i = 0; i < sortedPositions.length; i++) {
+            if (currentNode) currentNode.value.stateRegistrationNumber = String(sortedPositions[i]);
+            if (currentNode) currentNode = currentNode.next;
+          }
     }
 }
